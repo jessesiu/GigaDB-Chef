@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# List available backups
+
+. "$(dirname "$0")/tarsnap-env.sh"
+
+$TARSNAP --list-archives -v

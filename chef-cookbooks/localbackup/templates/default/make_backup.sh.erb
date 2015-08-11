@@ -1,0 +1,65 @@
+#!/bin/bash
+
+set -e
+renice -n 19 $$
+
+
+# Work around a bug in cron causing it not to respect locale
+# settings in /etc/default/locale and use POSIX instead of UTF-8.
+# This creates problems with non-ascii file names.
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=543895
+export LANG='en_US.UTF-8'
+
+
+<%- localbackup = node[:localbackup] -%>
+backup_dir=<%= localbackup[:destination] %>
+dump_dir="$backup_dir/db_dumps"
+backups_to_keep=7
+umask 0077
+timestamp=$(date +%Y%m%d%H%M%S)
+
+cd "$backup_dir"
+
+
+mkdir -p "$dump_dir"
+
+<%- if localbackup[:pgsql][:enable] -%>
+echo Backing up PostgreSQL...
+sudo -u postgres /usr/bin/pg_dumpall -cO |
+    gzip > "$dump_dir/postgresql-$timestamp.sql.gz"
+<%- end -%>
+
+<%- if localbackup[:mysql][:enable] -%>
+echo Backing up MySQL...
+/usr/bin/mysqldump --events --all-databases \
+    -uroot \
+    -p<%= node[:mysql][:server_root_password] %> |
+    gzip > "$dump_dir/mysql-$timestamp.sql.gz"
+<%- end -%>
+
+
+for thing in <%= localbackup[:dirs].join(' ') %>
+do
+    thing="$(readlink -f $thing)"
+    echo "Backing up $thing..."
+    # Replace / with _
+    out_base="${thing//\//_}"
+    out_file="$backup_dir/$out_base-$timestamp.tar.gz"
+    set +e
+    # tar exits with code 1 if some files were changed while being archived,
+    # which is not a problem
+    # http://www.gnu.org/software/tar/manual/html_section/Synopsis.html
+    /bin/tar <%= localbackup[:tar_options] %> \
+             --exclude-from <%= localbackup[:ignore_file] %> \
+             -Pczf "$out_file" "$thing"
+    set -e
+done
+
+
+echo "Removing old backups..."
+# Off by one
+backups_to_keep=$(($backups_to_keep - 1))
+find -L "$backup_dir" -mtime +$backups_to_keep -type f -delete
+
+
+echo "Done"

@@ -1,0 +1,7 @@
+/var/mail/* {
+    rotate 3
+    compress
+    delaycompress
+    size 10M
+    olddir <%= @old_mail_dir %>
+}

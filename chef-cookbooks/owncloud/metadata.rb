@@ -1,0 +1,6 @@
+name    'owncloud'
+depends 'apt'
+depends 'git'
+depends 'nginx'
+depends 'postgresql'
+depends 'php'
