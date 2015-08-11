@@ -10,6 +10,7 @@ Step3:
 
 Step4:
     cd /var/www/hosts/gigadb.cogini.com/htdocs
+    Go to the https://github.com/jessesiu/GigaDBV3 repo, pull the website code from gigadb-website.git_2 folder
 
     $ sudo -u gigadb git pull  #pull website code. make sure you're on master first, of course.
 
@@ -32,9 +33,14 @@ Step6:
     }
 
 Step7:
+    Go to the https://github.com/jessesiu/GigaDBV3 repo, pull the database backup file gigadb_v3_0717.backup.
+    Using pg_restore restore gigadb_v3 database from backup file.
+    
+    
+Step8:
     Make gigadb site enable. run the command.
 
     ln sites-available/gigadb sites-enabled/gigadb
 
-Step8:
+Step9:
     Remove '/etc/nginx/conf.d/default.conf'. That's the "Welcome to nginx" site, which overshadows our site.
