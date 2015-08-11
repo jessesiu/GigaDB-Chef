@@ -38,7 +38,7 @@ Step7:
     
     Command:
     
-         pg_restore --host localhost --port 5432 --username "postgres" --dbname "gigadb_v3" --role "gigadb" --no-password --verbose "gigadb_v3_0428.backup"
+         pg_restore --host localhost --port 5432 --username "postgres" --dbname "gigadb_v3" --role "gigadb" --no-password --verbose "gigadb_v3_0717.backup"
       
     
 Step8:
