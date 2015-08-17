@@ -53,4 +53,11 @@ Step9:
 Step10:
     Disable SELinux 
 
+Check things:
+
+is pgsql data folder owned by postgres?
+
+is var/www folders readable (755?)
+
+is IPTABLES 'rejecting all' on input? check INPUT number 5 using command: iptables -L 
 
