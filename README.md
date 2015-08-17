@@ -48,3 +48,9 @@ Step8:
 
 Step9:
     Remove '/etc/nginx/conf.d/default.conf'. That's the "Welcome to nginx" site, which overshadows our site.
+
+
+Step10:
+    Disable SELinux 
+
+
