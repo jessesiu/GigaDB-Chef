@@ -9,7 +9,7 @@ Step3:
     Copy the node.json file and solo.rb file, you may need change some parts in those files
 
 Step4:
-    cd /var/www/hosts/gigadb.cogini.com/htdocs
+    cd /var/www/hosts/localhost/htdocs
     Go to the https://github.com/jessesiu/GigaDBV3 repo, pull the website code from gigadb-website.git_2 folder
 
     $ sudo -u gigadb git pull  #pull website code. make sure you're on master first, of course.
