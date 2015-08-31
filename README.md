@@ -36,9 +36,12 @@ Step7:
     Go to the https://github.com/jessesiu/GigaDBV3 repo, pull the database backup file gigadb_v3_0717.backup.
     Using pg_restore restore gigadb_v3 database from backup file.
     
-    Command:
     
-         pg_restore --host localhost --port 5432 --username "postgres" --dbname "gigadb_v3" --role "gigadb" --no-password --verbose "gigadb_v3_0717.backup"
+    Command:
+        
+         su - postgres
+    
+         pg_restore -d gigadb_v3 gigadb_v3_0717.backup
       
     
 Step8:
