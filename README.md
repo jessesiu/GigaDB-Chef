@@ -65,4 +65,21 @@ Step11:
     is var/www folders readable (755?)
 
     is IPTABLES 'rejecting all' on input? check INPUT number 5 using command: iptables -L 
+    
+Step12:
+
+Set the Ftp service:
+
+    pasv_enable=Yes
+    pasv_max_port=10100
+    pasv_min_port=10090
+    
+This enables passive mode and restricts it to using the ten ports for data connections. This is useful as you need to open these ports on your firewall.
+
+    iptables -I INPUT -p tcp --destination-port 10090:10100 -j ACCEPT
+    
+If after testing this all works then save the state of your firewall with
+
+    service iptables save
+    
 
