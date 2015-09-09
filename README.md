@@ -68,7 +68,7 @@ Step11:
     
 Step12:
 
-Set the Ftp service:
+Set the Ftp service: set some parameters in vsftpd.conf
 
     pasv_enable=Yes
     pasv_max_port=10100
