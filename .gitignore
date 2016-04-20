@@ -5,4 +5,5 @@ protected/runtime/*
 protected/data/*.db
 themes/classic/views/
 node.json
+site-cookbooks/gigadb/templates/default/yii-local.php.erb
 
